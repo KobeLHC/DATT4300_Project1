@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Egg
+  - Chicken
+  - Onion
+  - Noodles
+  - Tofu
+  - Tomato
   layers:
   - Default
   - TransparentFX
