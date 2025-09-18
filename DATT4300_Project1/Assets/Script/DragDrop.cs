@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     private RectTransform rectTransform;
-
     Transform parentAfterDrag;
-
     private CanvasGroup canvasGroup;
+    public TextMeshProUGUI tmpText;
+    private string objectTag;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         canvasGroup.blocksRaycasts = false;
+        tmpText.gameObject.SetActive(false); 
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -40,6 +42,40 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
+        if (tmpText == null) return;
+
+        tmpText.gameObject.SetActive(true);
+        string objectTag = gameObject.tag;
+
+        switch (objectTag)
+        {
+            case "Egg":
+                tmpText.text = "It feels round and smells like nothing";
+                break;
+
+            case "Chicken":
+                tmpText.text = "It's kinda soft and smells a bit raw";
+                break;
+
+            case "Onion":
+                tmpText.text = "It feels round and smells like I'm gonna cry";
+                break;
+
+            case "Noodles":
+                tmpText.text = "It feels thin and smells like it's been fried";
+                break;
+
+            case "Tofu":
+                tmpText.text = "It feels square and soft and smells like beans";
+                break;
+
+            case "Tomato":
+                tmpText.text = "It feels round and smells like ketchup";
+                break;
+
+            default:
+                tmpText.text = "";
+                break;
+        }
     }
 }
