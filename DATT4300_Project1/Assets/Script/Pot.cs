@@ -1,10 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Pot : MonoBehaviour
 {
     public RandomOrder randomOrder;  // drag the RandomOrder object here
     public ItemSlot itemSlot;        // drag the ItemSlot (basket) here
+    public RandomPos randomPosIngredients;
+    public TextMeshProUGUI cookingHint;
+    public bool isCorrect;
+    public TextMeshProUGUI endGameHint;
+    public int finishedDish;
+
+    private void Start()
+    {
+        finishedDish = 0;
+        cookingHint.gameObject.SetActive(false);
+        endGameHint.text = "Dish Finished\n" + finishedDish + "/3";
+        endGameHint.gameObject.SetActive(true);
+    }
 
     // this method will be called when the basket is released over the pot
     public void HandleBasketDrop()
@@ -20,10 +35,27 @@ public class Pot : MonoBehaviour
 
             // show new recipe
             randomOrder.ShowRandomText();
+
+            //generate random postition for ingredients when correct
+            randomPosIngredients.ShuffleChildren();
+
+            isCorrect = true;
+            OnHint();
+
+            finishedDish++;
+            if(finishedDish == 3)
+            {
+                SceneManager.LoadScene("Win");
+            }
+
+            endGameHint.text = "Dish Finished\n" + finishedDish + "/3";
         }
         else
         {
             Debug.Log("wrong ingredients");
+
+            isCorrect = false;
+            OnHint();
 
             // clear collected items too
             itemSlot.collectedItems.Clear();
@@ -53,5 +85,20 @@ public class Pot : MonoBehaviour
         }
 
         return ingredientsCopy.Count == 0; // all matched
+    }
+
+    public void OnHint()
+    {
+        cookingHint.gameObject.SetActive(true);
+
+        if (isCorrect)
+        {
+            cookingHint.text = "Correct Ingredients\nStart Cooking";
+        }
+
+        else
+        {
+            cookingHint.text = "Wrong Ingredients";
+        }
     }
 }

@@ -8,15 +8,15 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     private bool isPaused;
     public GameObject settingMenu;
-    public GameObject recipeMenu;
-    public bool isShowed;
+    //public GameObject recipeMenu;
+    //public bool isShowed;
 
     void Start()
     {
         pauseMenu.SetActive(false);
         settingMenu.SetActive(false);
-        recipeMenu.SetActive(true);
-        isShowed = true;
+        //recipeMenu.SetActive(true);
+        //isShowed = true;
     }
 
     // Update is called once per frame
@@ -35,18 +35,18 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (isShowed)
-            {
-                OffRecipeMenu();
-            }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    if (isShowed)
+        //    {
+        //        OffRecipeMenu();
+        //    }
 
-            else
-            {
-                OnRecipeMenu();
-            }
-        }
+        //    else
+        //    {
+        //        OnRecipeMenu();
+        //    }
+        //}
     }
 
     public void PauseGame()
@@ -79,15 +79,15 @@ public class PauseMenu : MonoBehaviour
         settingMenu.SetActive(false);
     }
 
-    public void OnRecipeMenu()
-    {
-        recipeMenu.SetActive(true);
-        isShowed = true;
-    }
+    //public void OnRecipeMenu()
+    //{
+    //    recipeMenu.SetActive(true);
+    //    isShowed = true;
+    //}
 
-    public void OffRecipeMenu()
-    {
-        recipeMenu.SetActive(false);
-        isShowed = false;
-    }
+    //public void OffRecipeMenu()
+    //{
+    //    recipeMenu.SetActive(false);
+    //    isShowed = false;
+    //}
 }

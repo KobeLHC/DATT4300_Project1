@@ -32,11 +32,17 @@ public class MenuScript : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+        Debug.Log("Exit Game");
     }
 
     public void Resume()
     {
         settingPanel.SetActive(false);
         creditPanel.SetActive(false);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

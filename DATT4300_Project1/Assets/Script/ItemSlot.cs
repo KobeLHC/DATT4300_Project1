@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
+using System.Collections;
 
-public class ItemSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class ItemSlot : MonoBehaviour, IPointerDownHandler, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     
     public List<GameObject> collectedItems = new List<GameObject>();
@@ -12,13 +14,33 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDrag
     private Transform parentAfterDrag;
     private CanvasGroup canvasGroup;
     private Vector2 startPosition;
+    public TextMeshProUGUI basketHint;
+    public bool isOn;
+    public TextMeshProUGUI smellHint;
+    public bool dropOn;
+    public TextMeshProUGUI resetHint;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         startPosition = rectTransform.anchoredPosition; // remember basket's start position
+        isOn = false;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            collectedItems.Clear();
+            resetHint.gameObject.SetActive(true);
+            basketHint.text = collectedItems.Count + " ingredients inside the basket ";
+            Debug.Log(collectedItems.Count + " inside the basket");
+
+            StartCoroutine(HideBasketHintAfterDelay(1f));
+        }
+    }
+
 
     // called when something is dropped into the basket
     public void OnDrop(PointerEventData eventData)
@@ -28,7 +50,25 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDrag
             GameObject droppedItem = eventData.pointerDrag;
 
             // adds item to basket
-            collectedItems.Add(droppedItem);
+            if(collectedItems.Count < 3)
+            {
+                collectedItems.Add(droppedItem);
+                basketHint.text = collectedItems.Count + " ingredients inside the basket ";
+                basketHint.gameObject.SetActive(true);
+                dropOn = true;
+            }
+
+            else
+            {
+                basketHint.text = " Reached Max ingredients\n\n " + collectedItems.Count + " ingredients inside the basket ";
+                basketHint.gameObject.SetActive(true);
+                dropOn = true;
+            }
+
+            //collectedItems.Add(droppedItem);
+            //basketHint.text = collectedItems.Count + " ingredients inside the basket";
+            //basketHint.gameObject.SetActive(true);
+            //dropOn = true;
 
             // debug 
             string itemTag = string.IsNullOrEmpty(droppedItem.tag) ? droppedItem.name : droppedItem.tag;
@@ -44,6 +84,35 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDrag
         }
     }
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        //if (basketHint == null) return;
+        //Debug.Log("Clicking Basket");
+        smellHint.gameObject.SetActive(false);
+
+        if (dropOn)
+        {
+            basketHint.gameObject.SetActive(false);
+            isOn = true;
+        }
+
+        basketHint.text = collectedItems.Count + " ingredients inside the basket";
+
+        if (isOn) //when basket hint is on, then turn off
+        {
+            basketHint.gameObject.SetActive(false);
+            isOn = false;
+            dropOn = false;
+        }
+
+        else //when basket hint is off, then turn on
+        {
+            basketHint.gameObject.SetActive(true);
+            isOn = true;
+        }
+
+    }
+
     // basket dragging
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -51,6 +120,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDrag
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         canvasGroup.blocksRaycasts = false;
+        basketHint.gameObject.SetActive(false);
+        smellHint.gameObject.SetActive(false);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -58,8 +129,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDrag
         rectTransform.anchoredPosition += eventData.delta;
     }
 
-public void OnEndDrag(PointerEventData eventData)
-{
+    public void OnEndDrag(PointerEventData eventData)
+    {
     // get basket center in world space
     Vector2 basketWorldPos = rectTransform.position;
 
@@ -79,8 +150,15 @@ public void OnEndDrag(PointerEventData eventData)
     transform.SetParent(parentAfterDrag);
     rectTransform.anchoredPosition = startPosition;
     canvasGroup.blocksRaycasts = true;
-}
+    }
+
+    private IEnumerator HideBasketHintAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        resetHint.gameObject.SetActive(false);
+    }
 
 }
+
 
 

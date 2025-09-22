@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SceneSwitcher : MonoBehaviour
 {
     public GameObject[] screens;
     private int currentIndex = 1; // starting screen (middle screen cooking area)
+    public TextMeshProUGUI cookingHint;
 
     void Start()
     {
@@ -16,6 +18,8 @@ public class SceneSwitcher : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
+            cookingHint.gameObject.SetActive(false);
+
             if (currentIndex < screens.Length - 1)
             {
                 currentIndex++;
@@ -25,6 +29,8 @@ public class SceneSwitcher : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
+            cookingHint.gameObject.SetActive(false);
+
             if (currentIndex > 0)
             {
                 currentIndex--;

@@ -11,6 +11,8 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     private CanvasGroup canvasGroup;
     public TextMeshProUGUI tmpText;
     private string objectTag;
+    public TextMeshProUGUI basketHint;
+    public ItemSlot onSwitch;
 
     private void Awake()
     {
@@ -25,7 +27,9 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         canvasGroup.blocksRaycasts = false;
-        tmpText.gameObject.SetActive(false); 
+        tmpText.gameObject.SetActive(false);
+        basketHint.gameObject.SetActive(false);
+        onSwitch.isOn = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -43,6 +47,9 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public void OnPointerDown(PointerEventData eventData)
     {
         if (tmpText == null) return;
+
+        basketHint.gameObject.SetActive(false);
+        onSwitch.isOn = false;
 
         tmpText.gameObject.SetActive(true);
         string objectTag = gameObject.tag;
