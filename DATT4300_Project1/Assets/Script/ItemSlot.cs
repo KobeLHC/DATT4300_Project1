@@ -4,9 +4,14 @@ using UnityEngine.EventSystems;
 using TMPro;
 using System.Collections;
 
+
+
 public class ItemSlot : MonoBehaviour, IPointerDownHandler, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     
+    [Header("Audio")]
+public AudioSource audioSource;
+public AudioClip resetClip;
     public List<GameObject> collectedItems = new List<GameObject>();
 
     // dragging support
@@ -19,6 +24,8 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler, IDropHandler, IBegin
     public TextMeshProUGUI smellHint;
     public bool dropOn;
     public TextMeshProUGUI resetHint;
+
+    
 
     private void Awake()
     {
@@ -36,7 +43,16 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler, IDropHandler, IBegin
             resetHint.gameObject.SetActive(true);
             basketHint.text = collectedItems.Count + " ingredients inside the basket ";
             Debug.Log(collectedItems.Count + " inside the basket");
-
+   if (audioSource != null && resetClip != null)
+{
+    Debug.Log("Trying to play reset sound...");
+    audioSource.PlayOneShot(resetClip);
+}
+else
+{
+    Debug.LogWarning("Missing AudioSource or resetClip!");
+}
+ 
             StartCoroutine(HideBasketHintAfterDelay(1f));
         }
     }
