@@ -14,6 +14,9 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public TextMeshProUGUI basketHint;
     public ItemSlot onSwitch;
 
+       public AudioSource audioSource;
+    public AudioClip clickSound;
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -47,6 +50,12 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public void OnPointerDown(PointerEventData eventData)
     {
         if (tmpText == null) return;
+
+            // play sfx when click or hold
+    if (audioSource != null && clickSound != null)
+    {
+        audioSource.PlayOneShot(clickSound);
+    }
 
         basketHint.gameObject.SetActive(false);
         onSwitch.isOn = false;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;   
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,11 @@ public class Pot : MonoBehaviour
     public bool isCorrect;
     public TextMeshProUGUI endGameHint;
     public int finishedDish;
+
+    [Header("Audio")]
+    public AudioSource audioSource;     // drag an AudioSource here
+    public AudioClip successClip;       // drag your success sound here
+    public AudioClip failClip;          // fail sound
 
     private void Start()
     {
@@ -29,6 +35,14 @@ public class Pot : MonoBehaviour
         if (CompareCollectedWithRecipe())
         {
             Debug.Log("recipe is correct");
+
+             if (audioSource != null && successClip != null)
+            {
+                
+                audioSource.PlayOneShot(successClip);
+            }
+
+
 
             // clear collected items
             itemSlot.collectedItems.Clear();
@@ -53,6 +67,11 @@ public class Pot : MonoBehaviour
         else
         {
             Debug.Log("wrong ingredients");
+
+                 if (audioSource != null && failClip != null)
+            {
+                audioSource.PlayOneShot(failClip);
+            }
 
             isCorrect = false;
             OnHint();
@@ -101,4 +120,5 @@ public class Pot : MonoBehaviour
             cookingHint.text = "Wrong Ingredients";
         }
     }
+
 }
