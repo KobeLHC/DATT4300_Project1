@@ -1600,7 +1600,7 @@ MonoBehaviour:
   endGameHint: {fileID: 1227406336}
   finishedDish: 0
   audioSource: {fileID: 796676440}
-  successClip: {fileID: 8300000, guid: 9a9cf8f1960c62c45ab3438040e02eea, type: 3}
+  successClip: {fileID: 8300000, guid: f6c435f9efdfcf74da077c3f564a6028, type: 3}
   failClip: {fileID: 8300000, guid: e3b1cbdbae6986b43b525150f0d170b1, type: 3}
 --- !u!61 &657686952
 BoxCollider2D:
