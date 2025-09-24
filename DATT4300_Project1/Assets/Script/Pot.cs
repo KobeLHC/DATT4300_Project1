@@ -23,7 +23,7 @@ public class Pot : MonoBehaviour
     {
         finishedDish = 0;
         cookingHint.gameObject.SetActive(false);
-        endGameHint.text = "Dish Finished\n" + finishedDish + "/10";
+        endGameHint.text = "Dish Finished\n" + finishedDish + "/5";
         endGameHint.gameObject.SetActive(true);
     }
 
@@ -57,12 +57,12 @@ public class Pot : MonoBehaviour
             OnHint();
 
             finishedDish++;
-            if(finishedDish == 3)
+            if(finishedDish == 5)
             {
                 SceneManager.LoadScene("Win");
             }
 
-            endGameHint.text = "Dish Finished\n" + finishedDish + "/10";
+            endGameHint.text = "Dish Finished\n" + finishedDish + "/5";
         }
         else
         {

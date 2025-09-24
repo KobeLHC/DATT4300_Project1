@@ -66,7 +66,7 @@ else
             GameObject droppedItem = eventData.pointerDrag;
 
             // adds item to basket
-            if(collectedItems.Count < 3)
+            if(collectedItems.Count < 5)
             {
                 collectedItems.Add(droppedItem);
                 basketHint.text = collectedItems.Count + " ingredients inside the basket ";

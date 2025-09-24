@@ -66,27 +66,27 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         switch (objectTag)
         {
             case "Egg":
-                tmpText.text = "It feels round and smells like nothing";
+                tmpText.text = "The scent of this ingredient is very subtle - almost nonexistent. You seem to pick up on a hint of sulfur, but that’s all";
                 break;
 
             case "Chicken":
-                tmpText.text = "It's kinda soft and smells a bit raw";
+                tmpText.text = "This ingredient smells slightly meaty but is mostly neutral smelling. You think you can smell some iron from blood and a slight egg-like scent";
                 break;
 
             case "Onion":
-                tmpText.text = "It feels round and smells like I'm gonna cry";
+                tmpText.text = "Harsh on the nose, this ingredient smells sharp and pungent, as if your nose ate something spicy. But the more you sniff, the scent turns sweeter and slightly earthy, like grass with a tangy kick";
                 break;
 
             case "Noodles":
-                tmpText.text = "It feels thin and smells like it's been fried";
+                tmpText.text = "This ingredient doesn’t have much of a scent at all, but you feel something powdery enter your nostrils as you continue to sniff. Huh, quite grain-like";
                 break;
 
             case "Tofu":
-                tmpText.text = "It feels square and soft and smells like beans";
+                tmpText.text = "This scent is quite mild, almost watery or bland. Focusing harder, you seem to notice a slightly bean-like aroma and a hint of soy";
                 break;
 
             case "Tomato":
-                tmpText.text = "It feels round and smells like ketchup";
+                tmpText.text = "The scent of this ingredient is quite complex, with many different odors. Some smell like detergent, some like geraniums. You feel some leaves as well, which smells like the definition of grassy with a hint of sweetness";
                 break;
 
             default:
