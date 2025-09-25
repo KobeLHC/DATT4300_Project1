@@ -24,6 +24,7 @@ public AudioClip resetClip;
     public TextMeshProUGUI smellHint;
     public bool dropOn;
     public TextMeshProUGUI resetHint;
+    [SerializeField] Canvas canvas;
 
     
 
@@ -142,7 +143,7 @@ else
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)

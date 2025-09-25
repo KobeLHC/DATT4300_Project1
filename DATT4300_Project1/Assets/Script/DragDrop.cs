@@ -14,8 +14,10 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public TextMeshProUGUI basketHint;
     public ItemSlot onSwitch;
 
-       public AudioSource audioSource;
+    public AudioSource audioSource;
     public AudioClip clickSound;
+
+    [SerializeField] Canvas canvas;
 
     private void Awake()
     {
@@ -38,7 +40,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public void OnDrag(PointerEventData eventData)
     {
         Debug.Log("OnDrag");
-        rectTransform.anchoredPosition += eventData.delta;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
